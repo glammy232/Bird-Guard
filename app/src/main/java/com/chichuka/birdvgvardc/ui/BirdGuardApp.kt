@@ -12,7 +12,7 @@ import com.chichuka.birdvgvardc.navigation.NavigationGraph
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun TownPlannerApp() {
+fun BirdGuardApp() {
     val navController = rememberNavController()
     MaterialTheme() {
         Column(modifier = Modifier.fillMaxSize()) {

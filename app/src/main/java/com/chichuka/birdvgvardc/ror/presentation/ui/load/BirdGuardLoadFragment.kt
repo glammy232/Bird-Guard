@@ -15,7 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.chichuka.birdvgvardc.MainActivity
-import com.chichuka.birdvgvardc.ror.data.shar.TowerPlannerSharedPreference
+import com.chichuka.birdvgvardc.ror.data.shar.BirdGuardSharedPreference
 import com.chichuka.birdvgvardc.databinding.FragmentLoadChickenBinding
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -23,12 +23,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.chichuka.birdvgvardc.R
 
 
-class TowerPlannerLoadFragment : Fragment(R.layout.fragment_load_chicken) {
+class BirdGuardLoadFragment : Fragment(R.layout.fragment_load_chicken) {
     private lateinit var chickenLoadBinding: FragmentLoadChickenBinding
 
-    private val volcanoLoadViewModel by viewModel<TowerPlannerLoadViewModel>()
+    private val volcanoLoadViewModel by viewModel<BirdGuardLoadViewModel>()
 
-    private val chickenSharedPreference by inject<TowerPlannerSharedPreference>()
+    private val chickenSharedPreference by inject<BirdGuardSharedPreference>()
 
     private var chickenUrl = ""
 
@@ -69,11 +69,11 @@ class TowerPlannerLoadFragment : Fragment(R.layout.fragment_load_chicken) {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 volcanoLoadViewModel.chickenHomeScreenState.collect {
                     when (it) {
-                        is TowerPlannerLoadViewModel.ChickenHomeScreenState.ChickenLoading -> {
+                        is BirdGuardLoadViewModel.ChickenHomeScreenState.ChickenLoading -> {
 
                         }
 
-                        is TowerPlannerLoadViewModel.ChickenHomeScreenState.ChickenError -> {
+                        is BirdGuardLoadViewModel.ChickenHomeScreenState.ChickenError -> {
                             requireActivity().startActivity(
                                 Intent(
                                     requireContext(),
@@ -83,7 +83,7 @@ class TowerPlannerLoadFragment : Fragment(R.layout.fragment_load_chicken) {
                             requireActivity().finish()
                         }
 
-                        is TowerPlannerLoadViewModel.ChickenHomeScreenState.ChickenSuccess -> {
+                        is BirdGuardLoadViewModel.ChickenHomeScreenState.ChickenSuccess -> {
                             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S_V2) {
                                 val chickenPermission = Manifest.permission.POST_NOTIFICATIONS
                                 val chickenPermissionRequestedBefore = chickenSharedPreference.chickenNotificationRequestedBefore
@@ -113,7 +113,7 @@ class TowerPlannerLoadFragment : Fragment(R.layout.fragment_load_chicken) {
                             }
                         }
 
-                        TowerPlannerLoadViewModel.ChickenHomeScreenState.ChickenNotInternet -> {
+                        BirdGuardLoadViewModel.ChickenHomeScreenState.ChickenNotInternet -> {
                             chickenLoadBinding.chickenLoadConnectionStateText.visibility = View.VISIBLE
                             chickenLoadBinding.chickenLoadingGroup.visibility = View.GONE
                             chickenLoadBinding.nointernetpanel?.visibility = View.VISIBLE

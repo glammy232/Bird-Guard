@@ -11,16 +11,15 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
-import com.chichuka.birdvgvardc.ror.TownPlannerGlobalLayoutUtil
+import com.chichuka.birdvgvardc.ror.BirdGuardGlobalLayoutUtil
 import com.chichuka.birdvgvardc.ror.chickenSetupSystemBars
-import com.chichuka.birdvgvardc.ror.presentation.app.BuildMasterApp
-import com.chichuka.birdvgvardc.ror.presentation.pushhandler.TowerPlannerPushHandler
-import com.chichuka.birdvgvardc.R
+import com.chichuka.birdvgvardc.ror.presentation.app.BirdGuardApp
+import com.chichuka.birdvgvardc.ror.presentation.pushhandler.BirdGuardPushHandler
 import org.koin.android.ext.android.inject
 
-class BuildMasterActivity : AppCompatActivity() {
+class BirdGuardActivity : AppCompatActivity() {
 
-    private val proBubbleBoPlingPushHandler by inject<TowerPlannerPushHandler>()
+    private val proBubbleBoPlingPushHandler by inject<BirdGuardPushHandler>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +28,7 @@ class BuildMasterActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_chicken)
         val chickenRootView = findViewById<View>(android.R.id.content)
-        TownPlannerGlobalLayoutUtil().chickenAssistActivity(this)
+        BirdGuardGlobalLayoutUtil().chickenAssistActivity(this)
         ViewCompat.setOnApplyWindowInsetsListener(chickenRootView) { chickenView, chickenInsets ->
             val chickenSystemBars = chickenInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             val chickenDisplayCutout = chickenInsets.getInsets(WindowInsetsCompat.Type.displayCutout())
@@ -39,10 +38,10 @@ class BuildMasterActivity : AppCompatActivity() {
             val chickenTopPadding = maxOf(chickenSystemBars.top, chickenDisplayCutout.top)
             val chickenLeftPadding = maxOf(chickenSystemBars.left, chickenDisplayCutout.left)
             val chickenRightPadding = maxOf(chickenSystemBars.right, chickenDisplayCutout.right)
-            window.setSoftInputMode(BuildMasterApp.Companion.chickenInputMode)
+            window.setSoftInputMode(BirdGuardApp.Companion.chickenInputMode)
 
             if (window.attributes.softInputMode == WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN) {
-                Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "ADJUST PUN")
+                Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "ADJUST PUN")
                 val chickenBottomInset = maxOf(chickenSystemBars.bottom, chickenDisplayCutout.bottom)
 
                 chickenView.setPadding(chickenLeftPadding, chickenTopPadding, chickenRightPadding, 0)
@@ -51,7 +50,7 @@ class BuildMasterActivity : AppCompatActivity() {
                     bottomMargin = chickenBottomInset
                 }
             } else {
-                Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "ADJUST RESIZE")
+                Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "ADJUST RESIZE")
 
                 val chickenBottomInset = maxOf(chickenSystemBars.bottom, chickenDisplayCutout.bottom, chickenIme.bottom)
 
@@ -66,7 +65,7 @@ class BuildMasterActivity : AppCompatActivity() {
 
             WindowInsetsCompat.CONSUMED
         }
-        Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Activity onCreate()")
+        Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Activity onCreate()")
         proBubbleBoPlingPushHandler.chickenHandlePush(intent.extras)
     }
 

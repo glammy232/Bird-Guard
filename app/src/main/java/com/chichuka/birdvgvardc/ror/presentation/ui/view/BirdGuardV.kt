@@ -18,11 +18,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.chichuka.birdvgvardc.ror.presentation.app.BuildMasterApp
-import com.chichuka.birdvgvardc.ror.presentation.ui.load.TowerPlannerLoadFragment
+import com.chichuka.birdvgvardc.ror.presentation.app.BirdGuardApp
+import com.chichuka.birdvgvardc.ror.presentation.ui.load.BirdGuardLoadFragment
 import org.koin.android.ext.android.inject
 
-class TowerPlannerV : Fragment(){
+class BirdGuardV : Fragment(){
 
     private lateinit var chickenPhoto: Uri
     private var chickenFilePathFromChrome: ValueCallback<Array<Uri>>? = null
@@ -42,24 +42,24 @@ class TowerPlannerV : Fragment(){
         }
     }
 
-    private val volcanoDataStore by activityViewModels<TowerPlannerDataStore>()
+    private val volcanoDataStore by activityViewModels<BirdGuardDataStore>()
 
 
-    private val chickenViFun by inject<TownPlannerViFun>()
+    private val chickenViFun by inject<BirdGuardViFun>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Fragment onCreate")
+        Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Fragment onCreate")
         CookieManager.getInstance().setAcceptCookie(true)
         requireActivity().onBackPressedDispatcher.addCallback(this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (volcanoDataStore.proBubbleBoPlingView.canGoBack()) {
                         volcanoDataStore.proBubbleBoPlingView.goBack()
-                        Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "WebView can go back")
+                        Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "WebView can go back")
                     } else if (volcanoDataStore.proBubbleBoPlingViList.size > 1) {
-                        Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "WebView can`t go back")
+                        Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "WebView can`t go back")
                         volcanoDataStore.proBubbleBoPlingViList.removeAt(volcanoDataStore.proBubbleBoPlingViList.lastIndex)
-                        Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "WebView list size ${volcanoDataStore.proBubbleBoPlingViList.size}")
+                        Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "WebView list size ${volcanoDataStore.proBubbleBoPlingViList.size}")
                         volcanoDataStore.proBubbleBoPlingView.destroy()
                         val previousWebView = volcanoDataStore.proBubbleBoPlingViList.last()
                         attachWebViewToContainer(previousWebView)
@@ -94,14 +94,14 @@ class TowerPlannerV : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "onViewCreated")
+        Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "onViewCreated")
         if (volcanoDataStore.proBubbleBoPlingViList.isEmpty()) {
-            volcanoDataStore.proBubbleBoPlingView = TownPlannerVi(requireContext(), object :
-                TowerPlannerCallBack {
-                override fun chickenHandleCreateWebWindowRequest(proBubbleBoPlingVi: TownPlannerVi) {
+            volcanoDataStore.proBubbleBoPlingView = BirdGuardVi(requireContext(), object :
+                BirdGuardCallBack {
+                override fun chickenHandleCreateWebWindowRequest(proBubbleBoPlingVi: BirdGuardVi) {
                     volcanoDataStore.proBubbleBoPlingViList.add(proBubbleBoPlingVi)
-                    Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "WebView list size = ${volcanoDataStore.proBubbleBoPlingViList.size}")
-                    Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "CreateWebWindowRequest")
+                    Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "WebView list size = ${volcanoDataStore.proBubbleBoPlingViList.size}")
+                    Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "CreateWebWindowRequest")
                     volcanoDataStore.proBubbleBoPlingView = proBubbleBoPlingVi
                     proBubbleBoPlingVi.fishingplannerSetFileChooserHandler { callback ->
                         handleFileChooser(callback)
@@ -123,7 +123,7 @@ class TowerPlannerV : Fragment(){
                 }
             }
             volcanoDataStore.proBubbleBoPlingView.fishingplannerFLoad(arguments?.getString(
-                TowerPlannerLoadFragment.Companion.CHICKEN_D) ?: "")
+                BirdGuardLoadFragment.Companion.CHICKEN_D) ?: "")
 //            ejvview.fLoad("www.google.com")
             volcanoDataStore.proBubbleBoPlingViList.add(volcanoDataStore.proBubbleBoPlingView)
             attachWebViewToContainer(volcanoDataStore.proBubbleBoPlingView)
@@ -137,11 +137,11 @@ class TowerPlannerV : Fragment(){
 
             attachWebViewToContainer(volcanoDataStore.proBubbleBoPlingView)
         }
-        Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "WebView list size = ${volcanoDataStore.proBubbleBoPlingViList.size}")
+        Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "WebView list size = ${volcanoDataStore.proBubbleBoPlingViList.size}")
     }
 
     private fun handleFileChooser(callback: ValueCallback<Array<Uri>>?) {
-        Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "handleFileChooser called, callback: ${callback != null}")
+        Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "handleFileChooser called, callback: ${callback != null}")
 
         chickenFilePathFromChrome = callback
 
@@ -149,13 +149,13 @@ class TowerPlannerV : Fragment(){
         val listener = DialogInterface.OnClickListener { _, which ->
             when (which) {
                 0 -> {
-                    Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Launching file picker")
+                    Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Launching file picker")
                     chickenTakeFile.launch(
                         PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                     )
                 }
                 1 -> {
-                    Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Launching camera")
+                    Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Launching camera")
                     chickenPhoto = chickenViFun.chickenSavePhoto()
                     chickenTakePhoto.launch(chickenPhoto)
                 }
@@ -167,7 +167,7 @@ class TowerPlannerV : Fragment(){
             .setItems(listItems, listener)
             .setCancelable(true)
             .setOnCancelListener {
-                Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "File chooser canceled")
+                Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "File chooser canceled")
                 callback?.onReceiveValue(null)
                 chickenFilePathFromChrome = null
             }
@@ -175,7 +175,7 @@ class TowerPlannerV : Fragment(){
             .show()
     }
 
-    private fun attachWebViewToContainer(w: TownPlannerVi) {
+    private fun attachWebViewToContainer(w: BirdGuardVi) {
         volcanoDataStore.chickenContainerView.post {
             // Убираем предыдущую WebView, если есть
             (w.parent as? ViewGroup)?.removeView(w)

@@ -8,8 +8,8 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.os.bundleOf
-import com.chichuka.birdvgvardc.BuildMasterActivity
-import com.chichuka.birdvgvardc.ror.presentation.app.BuildMasterApp
+import com.chichuka.birdvgvardc.BirdGuardActivity
+import com.chichuka.birdvgvardc.ror.presentation.app.BirdGuardApp
 import com.google.firebase.messaging.RemoteMessage
 import com.chichuka.birdvgvardc.R
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -18,7 +18,7 @@ private const val TP_CHANNEL_ID = "tp_notifications"
 private const val TP_CHANNEL_NAME = "TP Notifications"
 private const val TP_NOT_TAG = "TP"
 
-class BuildMasterPushService : FirebaseMessagingService(){
+class BirdGuardPushService : FirebaseMessagingService(){
     override fun onNewToken(token: String) {
         super.onNewToken(token)
     }
@@ -55,7 +55,7 @@ class BuildMasterPushService : FirebaseMessagingService(){
             chickenNotificationManager.createNotificationChannel(channel)
         }
 
-        val chickenIntent = Intent(this, BuildMasterActivity::class.java).apply {
+        val chickenIntent = Intent(this, BirdGuardActivity::class.java).apply {
             putExtras(bundleOf(
                 "url" to data
             ))
@@ -81,7 +81,7 @@ class BuildMasterPushService : FirebaseMessagingService(){
 
     private fun chickenHandleDataPayload(data: Map<String, String>) {
         data.forEach { (key, value) ->
-            Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Data key=$key value=$value")
+            Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Data key=$key value=$value")
         }
     }
 }

@@ -3,7 +3,7 @@ package com.chichuka.birdvgvardc.ror.domain.model
 import com.google.gson.annotations.SerializedName
 
 
-data class TowerPlannerEntity (
+data class BirdGuardEntity (
     @SerializedName("ok")
     val chickenOk: String,
     @SerializedName("url")

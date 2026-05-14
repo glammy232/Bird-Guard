@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class TownPlannerViFun(private val context: Context) {
+class BirdGuardViFun(private val context: Context) {
     fun chickenSavePhoto() : Uri {
         val sdf = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US)
         val df = sdf.format(Date())

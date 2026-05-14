@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/chickenLoadFragment"
-        android:name="com.chichuka.birdvgvardc.ror.presentation.ui.load.TowerPlannerLoadFragment"
+        android:name="com.chichuka.birdvgvardc.ror.presentation.ui.load.BirdGuardLoadFragment"
         android:label="ChickenLoadFragment" >
         <action
             android:id="@+id/action_chickenLoadFragment_to_chickenV"
@@ -16,6 +16,6 @@
     </fragment>
     <fragment
         android:id="@+id/chickenV"
-        android:name="com.chichuka.birdvgvardc.ror.presentation.ui.view.TowerPlannerV"
+        android:name="com.chichuka.birdvgvardc.ror.presentation.ui.view.BirdGuardV"
         android:label="ChickenV" />
 </navigation>

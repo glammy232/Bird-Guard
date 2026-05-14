@@ -5,23 +5,23 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.util.Log
 import com.appsflyer.AppsFlyerLib
-import com.chichuka.birdvgvardc.ror.presentation.app.BuildMasterApp
+import com.chichuka.birdvgvardc.ror.presentation.app.BirdGuardApp
 import com.google.android.gms.ads.identifier.AdvertisingIdClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Locale
 
-class TownPlannerSystemService(private val context: Context) {
+class BirdGuardSystemService(private val context: Context) {
 
     suspend fun volcanoGetGaid() : String  = withContext(Dispatchers.IO){
         val gaid = AdvertisingIdClient.getAdvertisingIdInfo(context).id ?: "00000000-0000-0000-0000-000000000000"
-        Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Gaid: $gaid")
+        Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Gaid: $gaid")
         return@withContext gaid
     }
 
     fun volcanoGetAppsflyerId(): String {
         val appsflyrid = AppsFlyerLib.getInstance().getAppsFlyerUID(context) ?: ""
-        Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "AppsFlyer: AppsFlyer Id = $appsflyrid")
+        Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "AppsFlyer: AppsFlyer Id = $appsflyrid")
         return appsflyrid
     }
 

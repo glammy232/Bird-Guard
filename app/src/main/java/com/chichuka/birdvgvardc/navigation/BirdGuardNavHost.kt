@@ -2,9 +2,6 @@ package com.chichuka.birdvgvardc.navigation
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn

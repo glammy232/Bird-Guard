@@ -2,22 +2,22 @@ package com.chichuka.birdvgvardc.ror.presentation.pushhandler
 
 import android.os.Bundle
 import android.util.Log
-import com.chichuka.birdvgvardc.ror.presentation.app.BuildMasterApp
+import com.chichuka.birdvgvardc.ror.presentation.app.BirdGuardApp
 
-class TowerPlannerPushHandler() {
+class BirdGuardPushHandler() {
     fun chickenHandlePush(extras: Bundle?) {
-        Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Extras from Push = ${extras?.keySet()}")
+        Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Extras from Push = ${extras?.keySet()}")
         if (extras != null) {
             val map = todoSphereBundleToMap(extras)
-            Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Map from Push = $map")
+            Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Map from Push = $map")
             map?.let {
                 if (map.containsKey("url")) {
-                    BuildMasterApp.Companion.TOWNPL_FB_LI = map["url"]
-                    Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "UrlFromActivity = $map")
+                    BirdGuardApp.Companion.TOWNPL_FB_LI = map["url"]
+                    Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "UrlFromActivity = $map")
                 }
             }
         } else {
-            Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Push data no!")
+            Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Push data no!")
         }
     }
 

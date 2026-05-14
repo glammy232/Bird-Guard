@@ -5,9 +5,9 @@ import android.app.Activity
 import android.graphics.Rect
 import android.view.View
 import android.widget.FrameLayout
-import com.chichuka.birdvgvardc.ror.presentation.app.BuildMasterApp
+import com.chichuka.birdvgvardc.ror.presentation.app.BirdGuardApp
 
-class TownPlannerGlobalLayoutUtil {
+class BirdGuardGlobalLayoutUtil {
 
     private var chickenMChildOfContent: View? = null
     private var chickenUsableHeightPrevious = 0
@@ -28,9 +28,9 @@ class TownPlannerGlobalLayoutUtil {
             val chickenHeightDifference = chickenUsableHeightSansKeyboard - chickenUsableHeightNow
 
             if (chickenHeightDifference > (chickenUsableHeightSansKeyboard / 4)) {
-                activity.window.setSoftInputMode(BuildMasterApp.Companion.chickenInputMode)
+                activity.window.setSoftInputMode(BirdGuardApp.Companion.chickenInputMode)
             } else {
-                activity.window.setSoftInputMode(BuildMasterApp.Companion.chickenInputMode)
+                activity.window.setSoftInputMode(BirdGuardApp.Companion.chickenInputMode)
             }
 //            mChildOfContent?.requestLayout()
             chickenUsableHeightPrevious = chickenUsableHeightNow

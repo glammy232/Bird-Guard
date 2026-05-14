@@ -3,19 +3,19 @@ package com.chichuka.birdvgvardc.ror.presentation.ui.load
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.chichuka.birdvgvardc.ror.data.shar.TowerPlannerSharedPreference
-import com.chichuka.birdvgvardc.ror.data.utils.TownPlannerSystemService
-import com.chichuka.birdvgvardc.ror.domain.usecases.TowerPlannerGetAllUseCase
-import com.chichuka.birdvgvardc.ror.presentation.app.BuildMasterApp
-import com.chichuka.birdvgvardc.ror.presentation.app.BuildMasterAppsFlyerState
+import com.chichuka.birdvgvardc.ror.data.shar.BirdGuardSharedPreference
+import com.chichuka.birdvgvardc.ror.data.utils.BirdGuardSystemService
+import com.chichuka.birdvgvardc.ror.domain.usecases.BirdGuardGetAllUseCase
+import com.chichuka.birdvgvardc.ror.presentation.app.BirdGuardApp
+import com.chichuka.birdvgvardc.ror.presentation.app.BirdGuardAppsFlyerState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class TowerPlannerLoadViewModel(
-    private val towerPlannerGetAllUseCase: TowerPlannerGetAllUseCase,
-    private val chickenSharedPreference: TowerPlannerSharedPreference,
-    private val volcanoSystemService: TownPlannerSystemService
+class BirdGuardLoadViewModel(
+    private val birdGuardGetAllUseCase: BirdGuardGetAllUseCase,
+    private val chickenSharedPreference: BirdGuardSharedPreference,
+    private val volcanoSystemService: BirdGuardSystemService
 ) : ViewModel() {
 
     private val _chickenHomeScreenState: MutableStateFlow<ChickenHomeScreenState> =
@@ -30,16 +30,16 @@ class TowerPlannerLoadViewModel(
             when (chickenSharedPreference.chickenAppState) {
                 0 -> {
                     if (volcanoSystemService.volcanoIsOnline()) {
-                        BuildMasterApp.Companion.chickenConversionFlow.collect {
+                        BirdGuardApp.Companion.chickenConversionFlow.collect {
                             when(it) {
-                                BuildMasterAppsFlyerState.BuildMasterDefault -> {}
-                                BuildMasterAppsFlyerState.BuildMasterError -> {
+                                BirdGuardAppsFlyerState.BirdGuardDefault -> {}
+                                BirdGuardAppsFlyerState.BirdGuardError -> {
                                     chickenSharedPreference.chickenAppState = 2
                                     _chickenHomeScreenState.value =
                                         ChickenHomeScreenState.ChickenError
                                     chickenGetApps = true
                                 }
-                                is BuildMasterAppsFlyerState.BuildMasterSuccess -> {
+                                is BirdGuardAppsFlyerState.BirdGuardSuccess -> {
                                     if (!chickenGetApps) {
                                         chickenGetData(it.chickenData)
                                         chickenGetApps = true
@@ -54,24 +54,24 @@ class TowerPlannerLoadViewModel(
                 }
                 1 -> {
                     if (volcanoSystemService.volcanoIsOnline()) {
-                        if (BuildMasterApp.Companion.TOWNPL_FB_LI != null) {
+                        if (BirdGuardApp.Companion.TOWNPL_FB_LI != null) {
                             _chickenHomeScreenState.value =
                                 ChickenHomeScreenState.ChickenSuccess(
-                                    BuildMasterApp.Companion.TOWNPL_FB_LI.toString()
+                                    BirdGuardApp.Companion.TOWNPL_FB_LI.toString()
                                 )
                         } else if (System.currentTimeMillis() / 1000 > chickenSharedPreference.chickenExpired) {
-                            Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Current time more then expired, repeat request")
-                            BuildMasterApp.Companion.chickenConversionFlow.collect {
+                            Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Current time more then expired, repeat request")
+                            BirdGuardApp.Companion.chickenConversionFlow.collect {
                                 when(it) {
-                                    BuildMasterAppsFlyerState.BuildMasterDefault -> {}
-                                    BuildMasterAppsFlyerState.BuildMasterError -> {
+                                    BirdGuardAppsFlyerState.BirdGuardDefault -> {}
+                                    BirdGuardAppsFlyerState.BirdGuardError -> {
                                         _chickenHomeScreenState.value =
                                             ChickenHomeScreenState.ChickenSuccess(
                                                 chickenSharedPreference.chickenSavedUrl
                                             )
                                         chickenGetApps = true
                                     }
-                                    is BuildMasterAppsFlyerState.BuildMasterSuccess -> {
+                                    is BirdGuardAppsFlyerState.BirdGuardSuccess -> {
                                         if (!chickenGetApps) {
                                             chickenGetData(it.chickenData)
                                             chickenGetApps = true
@@ -80,7 +80,7 @@ class TowerPlannerLoadViewModel(
                                 }
                             }
                         } else {
-                            Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Current time less then expired, use saved url")
+                            Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Current time less then expired, use saved url")
                             _chickenHomeScreenState.value =
                                 ChickenHomeScreenState.ChickenSuccess(
                                     chickenSharedPreference.chickenSavedUrl
@@ -101,7 +101,7 @@ class TowerPlannerLoadViewModel(
 
 
     private suspend fun chickenGetData(conversation: MutableMap<String, Any>?) {
-        val chickenData = towerPlannerGetAllUseCase.invoke(conversation)
+        val chickenData = birdGuardGetAllUseCase.invoke(conversation)
         if (chickenSharedPreference.chickenAppState == 0) {
             if (chickenData == null) {
                 chickenSharedPreference.chickenAppState = 2

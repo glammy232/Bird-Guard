@@ -1,9 +1,9 @@
 package com.chichuka.birdvgvardc.ror.data.repo
 
 import android.util.Log
-import com.chichuka.birdvgvardc.ror.domain.model.TowerPlannerEntity
+import com.chichuka.birdvgvardc.ror.domain.model.BirdGuardEntity
 import com.chichuka.birdvgvardc.ror.domain.model.TownPlannerParam
-import com.chichuka.birdvgvardc.ror.presentation.app.BuildMasterApp
+import com.chichuka.birdvgvardc.ror.presentation.app.BirdGuardApp
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
@@ -23,7 +23,7 @@ interface TownPlannerApi {
     @POST("config.php")
     fun getClient(
         @Body jsonString: JsonObject,
-    ): Call<TowerPlannerEntity>
+    ): Call<BirdGuardEntity>
 }
 
 
@@ -33,7 +33,7 @@ class TownPlannerRepository {
     suspend fun chickenGetClient(
         townPlannerParam: TownPlannerParam,
         chickenConversion: MutableMap<String, Any>?
-    ): TowerPlannerEntity? {
+    ): BirdGuardEntity? {
         val gson = Gson()
         val api = chickenGetApi(TOWNPlANNER_MAIN, null)
 
@@ -43,22 +43,22 @@ class TownPlannerRepository {
             chickenJsonObject.add(key, element)
         }
         return try {
-            val chickenRequest: Call<TowerPlannerEntity> = api.getClient(
+            val chickenRequest: Call<BirdGuardEntity> = api.getClient(
                 jsonString = chickenJsonObject,
             )
             val chickenResult = chickenRequest.awaitResponse()
-            Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Retrofit: Result code: ${chickenResult.code()}")
+            Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Retrofit: Result code: ${chickenResult.code()}")
             if (chickenResult.code() == 200) {
-                Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Retrofit: Get request success")
-                Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Retrofit: Code = ${chickenResult.code()}")
-                Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Retrofit: ${chickenResult.body()}")
+                Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Retrofit: Get request success")
+                Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Retrofit: Code = ${chickenResult.code()}")
+                Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Retrofit: ${chickenResult.body()}")
                 chickenResult.body()
             } else {
                 null
             }
         } catch (e: Exception) {
-            Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Retrofit: Get request failed")
-            Log.d(BuildMasterApp.Companion.TOWNPLANNER_MAIN_TAG, "Retrofit: ${e.message}")
+            Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Retrofit: Get request failed")
+            Log.d(BirdGuardApp.Companion.TOWNPLANNER_MAIN_TAG, "Retrofit: ${e.message}")
             null
         }
     }

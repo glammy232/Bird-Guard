@@ -3,7 +3,7 @@ package com.chichuka.birdvgvardc.ror.data.shar
 import android.content.Context
 import androidx.core.content.edit
 
-class TowerPlannerSharedPreference(context: Context) {
+class BirdGuardSharedPreference(context: Context) {
     private val chickenPrefs = context.getSharedPreferences("farmcraftSharedPrefsAb", Context.MODE_PRIVATE)
 
     var chickenSavedUrl: String

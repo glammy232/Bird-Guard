@@ -6,7 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.WindowCompat
-import com.chichuka.birdvgvardc.ui.TownPlannerApp
+import com.chichuka.birdvgvardc.ui.BirdGuardApp
 import androidx.annotation.RequiresApi
 
 class MainActivity : ComponentActivity() {
@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         
         setContent {
-            TownPlannerApp()
+            BirdGuardApp()
         }
     }
     /*fun getAppKeyHash(pack: String) {

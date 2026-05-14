@@ -18,12 +18,12 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
 import android.widget.Toast
-import com.chichuka.birdvgvardc.ror.presentation.app.BuildMasterApp
+import com.chichuka.birdvgvardc.ror.presentation.app.BirdGuardApp
 
 class
-TownPlannerVi(
+BirdGuardVi(
     private val chickenContext: Context,
-    private val towerPlannerCallback: TowerPlannerCallBack,
+    private val birdGuardCallback: BirdGuardCallBack,
     private val chickenWindow: Window
 ) : WebView(chickenContext) {
     private var fishingplannerFileChooserHandler: ((ValueCallback<Array<Uri>>?) -> Unit)? = null
@@ -80,11 +80,11 @@ TownPlannerVi(
             override fun onPageFinished(view: WebView?, url: String?) {
                 CookieManager.getInstance().flush()
                 if (url?.contains("test") == false) {
-                    BuildMasterApp.Companion.chickenInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
+                    BirdGuardApp.Companion.chickenInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
                     chickenWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
                     fishingplannerEnableStableInputScroll()
                 } else {
-                    BuildMasterApp.Companion.chickenInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
+                    BirdGuardApp.Companion.chickenInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
                     chickenWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
                 }
             }
@@ -315,10 +315,10 @@ TownPlannerVi(
         if (resultMsg == null) return
         if (resultMsg.obj != null && resultMsg.obj is WebViewTransport) {
             val transport = resultMsg.obj as WebViewTransport
-            val windowWebView = TownPlannerVi(chickenContext, towerPlannerCallback, chickenWindow)
+            val windowWebView = BirdGuardVi(chickenContext, birdGuardCallback, chickenWindow)
             transport.webView = windowWebView
             resultMsg.sendToTarget()
-            towerPlannerCallback.chickenHandleCreateWebWindowRequest(windowWebView)
+            birdGuardCallback.chickenHandleCreateWebWindowRequest(windowWebView)
         }
     }
 

@@ -5,14 +5,14 @@ import android.widget.FrameLayout
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class TowerPlannerDataStore : ViewModel(){
-    val proBubbleBoPlingViList: MutableList<TownPlannerVi> = mutableListOf()
+class BirdGuardDataStore : ViewModel(){
+    val proBubbleBoPlingViList: MutableList<BirdGuardVi> = mutableListOf()
     private val _chickenIsFirstFinishPage: MutableStateFlow<Boolean> = MutableStateFlow(true)
     var chickenIsFirstCreate = true
     @SuppressLint("StaticFieldLeak")
     lateinit var chickenContainerView: FrameLayout
     @SuppressLint("StaticFieldLeak")
-    lateinit var proBubbleBoPlingView: TownPlannerVi
+    lateinit var proBubbleBoPlingView: BirdGuardVi
 
     fun chickenSetIsFirstFinishPage() {
         _chickenIsFirstFinishPage.value = false

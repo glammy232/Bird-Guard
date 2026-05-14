@@ -22,14 +22,14 @@ import retrofit2.http.Headers
 import retrofit2.http.Query
 
 
-sealed interface BuildMasterAppsFlyerState {
-    data object BuildMasterDefault : BuildMasterAppsFlyerState
-    data class BuildMasterSuccess(val chickenData: MutableMap<String, Any>?) :
-        BuildMasterAppsFlyerState
-    data object BuildMasterError : BuildMasterAppsFlyerState
+sealed interface BirdGuardAppsFlyerState {
+    data object BirdGuardDefault : BirdGuardAppsFlyerState
+    data class BirdGuardSuccess(val chickenData: MutableMap<String, Any>?) :
+        BirdGuardAppsFlyerState
+    data object BirdGuardError : BirdGuardAppsFlyerState
 }
 
-interface BuildMasterAppsApi {
+interface BirdGuardAppsApi {
     @Headers("Content-Type: application/json")
     @GET(TOWNPLANNER_LIN)
     fun chickenGetClient(
@@ -39,7 +39,7 @@ interface BuildMasterAppsApi {
 }
 private const val TOWNPLANNER_APP_DEV = "6sQZVy3uW7jzdb5iS2x9bb"
 private const val TOWNPLANNER_LIN = "com.chichuka.birdvgvardc"
-class BuildMasterApp : Application() {
+class BirdGuardApp : Application() {
     private var chickenIsResumed = false
 
     override fun onCreate() {
@@ -59,7 +59,7 @@ class BuildMasterApp : Application() {
 
                     val afStatus = p0?.get("af_status")?.toString() ?: "null"
                     if (afStatus == "Organic") {
-                        chickenResume(BuildMasterAppsFlyerState.BuildMasterError)
+                        chickenResume(BirdGuardAppsFlyerState.BirdGuardError)
                         /*CoroutineScope(Dispatchers.IO).launch {
                             try {
                                 delay(5000)
@@ -87,13 +87,13 @@ class BuildMasterApp : Application() {
                             }
                         }*/
                     } else {
-                        chickenResume(BuildMasterAppsFlyerState.BuildMasterSuccess(p0))
+                        chickenResume(BirdGuardAppsFlyerState.BirdGuardSuccess(p0))
                     }
                 }
 
                 override fun onConversionDataFail(p0: String?) {
                     Log.d(TOWNPLANNER_MAIN_TAG, "onConversionDataFail: $p0")
-                    chickenResume(BuildMasterAppsFlyerState.BuildMasterError)
+                    chickenResume(BirdGuardAppsFlyerState.BirdGuardError)
                 }
 
                 override fun onAppOpenAttribution(p0: MutableMap<String, String>?) {
@@ -115,13 +115,13 @@ class BuildMasterApp : Application() {
 
             override fun onError(p0: Int, p1: String) {
                 Log.d(TOWNPLANNER_MAIN_TAG, "AppsFlyer start error: $p0 - $p1")
-                chickenResume(BuildMasterAppsFlyerState.BuildMasterError)
+                chickenResume(BirdGuardAppsFlyerState.BirdGuardError)
             }
         })
         
         startKoin {
             androidLogger(Level.DEBUG)
-            androidContext(this@BuildMasterApp)
+            androidContext(this@BirdGuardApp)
             modules(
                 listOf(
                     townplannerModule
@@ -130,7 +130,7 @@ class BuildMasterApp : Application() {
         }
     }
 
-    private fun chickenResume(state: BuildMasterAppsFlyerState) {
+    private fun chickenResume(state: BirdGuardAppsFlyerState) {
         if (!chickenIsResumed) {
             chickenIsResumed = true
             chickenConversionFlow.value = state
@@ -151,7 +151,7 @@ class BuildMasterApp : Application() {
         appsflyer.setMinTimeBetweenSessions(0)
     }
 
-    private fun chickenGetApi(url: String, client: OkHttpClient?) : BuildMasterAppsApi {
+    private fun chickenGetApi(url: String, client: OkHttpClient?) : BirdGuardAppsApi {
         val retrofit = Retrofit.Builder()
             .baseUrl(url)
             .client(client ?: OkHttpClient.Builder().build())
@@ -162,8 +162,8 @@ class BuildMasterApp : Application() {
 
     companion object {
         var chickenInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
-        val chickenConversionFlow: MutableStateFlow<BuildMasterAppsFlyerState> = MutableStateFlow(
-            BuildMasterAppsFlyerState.BuildMasterDefault
+        val chickenConversionFlow: MutableStateFlow<BirdGuardAppsFlyerState> = MutableStateFlow(
+            BirdGuardAppsFlyerState.BirdGuardDefault
         )
         var TOWNPL_FB_LI: String? = null
         const val TOWNPLANNER_MAIN_TAG = "TOWNPLANNERTag"

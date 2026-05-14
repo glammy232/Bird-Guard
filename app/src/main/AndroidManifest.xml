@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
-        android:name="com.chichuka.birdvgvardc.ror.presentation.app.BuildMasterApp"
+        android:name="com.chichuka.birdvgvardc.ror.presentation.app.BirdGuardApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,7 +20,7 @@
         tools:replace="android:fullBackupContent,android:dataExtractionRules"
         android:usesCleartextTraffic="true" >
         <activity
-            android:name="com.chichuka.birdvgvardc.BuildMasterActivity"
+            android:name="com.chichuka.birdvgvardc.BirdGuardActivity"
             android:theme="@style/Theme.Chicken"
             android:exported="true" >
             <intent-filter>
@@ -37,7 +37,7 @@
         </activity>
 
         <service
-            android:name="com.chichuka.birdvgvardc.ror.presentation.notificiation.BuildMasterPushService"
+            android:name="com.chichuka.birdvgvardc.ror.presentation.notificiation.BirdGuardPushService"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
